@@ -3,3 +3,4 @@
 - Generate `Mesh` from `Grid.Triangle.Kite` vertex configurations.
 - Add `KiteMeshOperation` to generate given `Grid.Triangle.Kite`.
 - Integrate package into `Regolith Viewer` example project.
+- Add `Kite.kappa` and `Kite.uniform` type for degenerate triangles. 
