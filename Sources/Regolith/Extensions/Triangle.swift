@@ -9,12 +9,6 @@ import Euclid
 
 extension Grid.Triangle.Kite {
     
-    public enum Constant {
-        
-        public static let apex = Double(Grid.Scale.tile.rawValue) / 10.0
-        public static let base = Double(Grid.Scale.tile.rawValue) / 2.0
-    }
-    
     public enum Elevation: String,
                            CaseIterable,
                            Identifiable {
@@ -28,8 +22,8 @@ extension Grid.Triangle.Kite {
             
             switch self {
                 
-            case .apex: return Vector(0.0, Constant.apex, 0.0)
-            case .base: return Vector(0.0, Constant.base, 0.0)
+            case .apex: return Vector(0.0, Grid.Triangle.Kite.apex, 0.0)
+            case .base: return Vector(0.0, Grid.Triangle.Kite.base, 0.0)
             }
         }
     }
@@ -66,12 +60,13 @@ extension Grid.Triangle.Kite {
             let v2 = v1 + peak
             let v3 = v0 + peak
             
-            let face = Polygon.Face(vectors: [v0,
-                                              v1,
-                                              v2,
-                                              v3])
+            let face = Polygon.Face([v0,
+                                     v1,
+                                     v2,
+                                     v3],
+                                    color: color)
             
-            try polygons.glue(face.polygon(color: color))
+            try polygons.glue(face?.polygon)
         }
         
         return Mesh(polygons)
