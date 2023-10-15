@@ -12,13 +12,14 @@ import SceneKit
 
 class AppViewModel: ObservableObject {
     
-    enum Constant {
+    @Published var terrainType: TerrainType = .boreal {
         
-        static let cameraY = 1.5
-        static let cameraZ = 1.5
-        
-        static let primaryColor = Color(0.47, 0.61, 0.32)
-        static let secondaryColor = Color(0.52, 0.39, 0.27)
+        didSet {
+            
+            guard oldValue != terrainType else { return }
+            
+            updateScene()
+        }
     }
     
     @Published var kite: Grid.Triangle.Kite = .epsilon {
@@ -41,27 +42,40 @@ class AppViewModel: ObservableObject {
         }
     }
     
-    let scene = Scene()
+    @Published var profile: Mesh.Profile = .init(polygonCount: 0,
+                                                 vertexCount: 0)
+    
+    internal let scene = Scene()
     
     private let operationQueue = OperationQueue()
-    private let triangle = Grid.Triangle(.zero)
-    private var stencil: Grid.Triangle.Stencil { triangle.stencil(for: .tile) }
     
-    private let colorPalette = ColorPalette(primary: Constant.primaryColor,
-                                            secondary: Constant.secondaryColor,
-                                            tertiary: .black,
-                                            quaternary: .black)
+    private var cache: TerrainCache?
     
     init() {
         
-        scene.camera.position = SCNVector3(0, Constant.cameraY, Constant.cameraZ)
-        scene.camera.look(at: SCNVector3(stencil.vertex(for: .v0)))
-        
-        updateScene()
+        generateCache()
     }
 }
 
 extension AppViewModel {
+    
+    private func generateCache() {
+        
+        let operation = TerrainCacheOperation()
+        
+        operation.enqueue(on: operationQueue) { [weak self] result in
+            
+            guard let self else { return }
+            
+            switch result {
+                
+            case .success(let cache): self.cache = cache
+            case .failure(let error): fatalError(error.localizedDescription)
+            }
+            
+            self.updateScene()
+        }
+    }
     
     private func createNode(with mesh: Mesh?) -> SCNNode? {
         
@@ -83,37 +97,24 @@ extension AppViewModel {
     
     private func updateScene() {
         
-        let operation = KiteMeshOperation(kite: kite,
-                                          colorPalette: colorPalette,
-                                          elevation: elevation,
-                                          stencil: stencil)
+        self.scene.clear()
         
-        operation.enqueue(on: operationQueue) { [weak self] result in
-            
-            guard let self else { return }
-            
-            switch result {
-                
-            case .success(let mesh):
-                
-                self.scene.clear()
-                
-                self.updateSurface()
-                
-                guard let node = self.createNode(with: mesh) else { return }
-                
-                self.scene.rootNode.addChildNode(node)
-                
-            case .failure(let error):
-                
-                fatalError(error.localizedDescription)
-            }
-        }
+        self.updateSurface()
+        
+        guard let cache,
+              let mesh = cache.mesh(for: kite,
+                                    terrainType: terrainType,
+                                    elevation: elevation),
+              let node = self.createNode(with: mesh) else { return }
+        
+        self.scene.rootNode.addChildNode(node)
+        
+        self.updateProfile(for: mesh)
     }
     
     private func updateSurface() {
         
-        let vertices = triangle.vertices(for: .tile).map { Vertex($0, .up) }
+        let vertices = Grid.Triangle.zero.vertices(for: .tile).map { Vertex($0, .up) }
         
         guard let polygon = Polygon(vertices) else { return }
         
@@ -122,5 +123,15 @@ extension AppViewModel {
         guard let node = createNode(with: mesh) else { return }
         
         scene.rootNode.addChildNode(node)
+    }
+    
+    private func updateProfile(for mesh: Mesh) {
+        
+        DispatchQueue.main.async { [weak self] in
+            
+            guard let self else { return }
+            
+            self.profile = mesh.profile
+        }
     }
 }

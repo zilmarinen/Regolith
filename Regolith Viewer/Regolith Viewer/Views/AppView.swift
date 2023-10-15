@@ -17,11 +17,23 @@ struct AppView: View {
         #if os(iOS)
             NavigationStack {
         
-                sceneView
+                viewer
             }
         #else
-            sceneView
+            viewer
         #endif
+    }
+    
+    var viewer: some View {
+        
+        ZStack(alignment: .bottomTrailing) {
+            
+            sceneView
+            
+            Text("Polygons: [\(viewModel.profile.polygonCount)] Vertices: [\(viewModel.profile.vertexCount)]")
+                .foregroundColor(.black)
+                .padding()
+        }
     }
     
     var sceneView: some View {
@@ -41,6 +53,16 @@ struct AppView: View {
     
     @ViewBuilder
     var toolbar: some View {
+        
+        Picker("Terrain Type",
+               selection: $viewModel.terrainType) {
+            
+            ForEach(TerrainType.allCases, id: \.self) { terrainType in
+                
+                Text(terrainType.id.capitalized)
+                    .id(terrainType)
+            }
+        }
         
         Picker("Kite",
                selection: $viewModel.kite) {

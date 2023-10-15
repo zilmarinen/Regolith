@@ -34,7 +34,7 @@ extension Grid.Triangle.Kite {
         
         let color = (elevation == .apex ? colorPalette.primary : colorPalette.secondary)
         let peak = elevation.peak
-        let points = vertices(for: stencil.scale).map { stencil.vertex(for: $0) }
+        let points = vertices.map { stencil.vertex(for: $0) }
         
         var polygons: [Polygon] = []
         
