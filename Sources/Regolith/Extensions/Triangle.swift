@@ -60,11 +60,11 @@ extension Grid.Triangle.Kite {
             let v2 = v1 + peak
             let v3 = v0 + peak
             
-            let face = Polygon.Face([v0,
-                                     v1,
-                                     v2,
-                                     v3],
-                                    color: color)
+            let face = Face([v0,
+                             v1,
+                             v2,
+                             v3],
+                            color: color)
             
             try polygons.glue(face?.polygon)
         }

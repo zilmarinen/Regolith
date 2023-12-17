@@ -28,6 +28,8 @@ public class KiteMeshOperation: ConcurrentOperation,
         self.colorPalette = colorPalette
         self.elevation = elevation
         self.stencil = stencil
+        
+        super.init()
     }
     
     public override func execute() {

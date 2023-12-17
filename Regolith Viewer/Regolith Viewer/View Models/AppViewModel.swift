@@ -82,15 +82,8 @@ extension AppViewModel {
         guard let mesh else { return nil }
         
         let node = SCNNode()
-        let wireframe = SCNNode()
-        let material = SCNMaterial()
         
         node.geometry = SCNGeometry(mesh)
-        node.geometry?.firstMaterial = material
-        
-        wireframe.geometry = SCNGeometry(wireframe: mesh)
-        
-        node.addChildNode(wireframe)
         
         return node
     }
@@ -109,18 +102,25 @@ extension AppViewModel {
         
         self.scene.rootNode.addChildNode(node)
         
+        node.geometry?.program = Program(function: .geometry)
+        
         self.updateProfile(for: mesh)
     }
     
     private func updateSurface() {
         
-        let vertices = Grid.Triangle.zero.vertices(for: .tile).map { Vertex($0, .up) }
+        let vertices = Grid.Triangle.zero.corners(for: .tile).map { Vertex($0,
+                                                                           .up,
+                                                                           nil,
+                                                                           .gray) }
         
         guard let polygon = Polygon(vertices) else { return }
         
         let mesh = Mesh([polygon])
         
         guard let node = createNode(with: mesh) else { return }
+        
+        node.geometry?.program = Program(function: .geometry)
         
         scene.rootNode.addChildNode(node)
     }

@@ -5,10 +5,14 @@
 //
 
 import Bivouac
+import Dependencies
+import Regolith
 import SceneKit
 import SwiftUI
 
 struct AppView: View {
+    
+    @Dependency(\.deviceManager) var deviceManager
     
     @ObservedObject private var viewModel = AppViewModel()
     
@@ -41,7 +45,8 @@ struct AppView: View {
         SceneView(scene: viewModel.scene,
                   pointOfView: viewModel.scene.camera.pov,
                   options: [.allowsCameraControl,
-                            .autoenablesDefaultLighting])
+                            .autoenablesDefaultLighting],
+                  technique: deviceManager.technique)
         .toolbar {
             
             ToolbarItemGroup {
