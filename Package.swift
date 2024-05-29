@@ -6,22 +6,25 @@ import PackageDescription
 let package = Package(
     name: "Regolith",
     platforms: [.macOS(.v12),
-                .iOS(.v13)],
+                .iOS(.v15)],
     products: [
-        .library(
-            name: "Regolith",
-            targets: ["Regolith"]),
+        .library(name: "Regolith",
+                 targets: ["Regolith"]),
     ],
     dependencies: [
-        .package(url: "git@github.com:nicklockwood/Euclid.git", branch: "main"),
-        .package(url: "git@github.com:3Squared/PeakOperation.git", branch: "develop"),
+        .package(url: "git@github.com:zilmarinen/Deltille.git",
+                 branch: "main"),
         .package(path: "../Bivouac"),
+        .package(url: "git@github.com:nicklockwood/Euclid.git",
+                 branch: "main"),
+        .package(url: "git@github.com:3Squared/PeakOperation.git",
+                 branch: "master"),
     ],
     targets: [
-        .target(
-            name: "Regolith",
-            dependencies: ["Bivouac",
-                           "Euclid",
-                           "PeakOperation"])
+        .target(name: "Regolith",
+                dependencies: ["Deltille",
+                               "Bivouac",
+                               "Euclid",
+                               "PeakOperation"])
     ]
 )

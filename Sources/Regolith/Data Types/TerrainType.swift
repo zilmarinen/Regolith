@@ -7,7 +7,7 @@
 import Bivouac
 import Foundation
 
-public enum TerrainType: Int,
+public enum TerrainType: String,
                          CaseIterable,
                          Identifiable {
     
@@ -19,19 +19,7 @@ public enum TerrainType: Int,
     case scrubland
     case tundra
     
-    public var id: String {
-        
-        switch self {
-            
-        case .boreal: return "Boreal"
-        case .chaparral: return "Chaparral"
-        case .deciduous: return "Deciduous"
-        case .prairie: return "Prairie"
-        case .rainforest: return "Rainforest"
-        case .scrubland: return "Scrubland"
-        case .tundra: return "Tundra"
-        }
-    }
+    public var id: String { rawValue.capitalized }
     
     public var transitions: [TerrainType] {
         

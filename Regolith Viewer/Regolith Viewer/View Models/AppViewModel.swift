@@ -5,6 +5,7 @@
 //
 
 import Bivouac
+import Deltille
 import Euclid
 import Foundation
 import Regolith
@@ -61,7 +62,7 @@ extension AppViewModel {
     
     private func generateCache() {
         
-        let operation = TerrainCacheOperation()
+        let operation = RegolithCacheOperation()
         
         operation.enqueue(on: operationQueue) { [weak self] result in
             
@@ -77,34 +78,24 @@ extension AppViewModel {
         }
     }
     
-    private func createNode(with mesh: Mesh?) -> SCNNode? {
-        
-        guard let mesh else { return nil }
-        
-        let node = SCNNode()
-        
-        node.geometry = SCNGeometry(mesh)
-        
-        return node
-    }
-    
     private func updateScene() {
         
-        self.scene.clear()
+        scene.clear()
         
-        self.updateSurface()
+        updateSurface()
         
         guard let cache,
               let mesh = cache.mesh(for: kite,
                                     terrainType: terrainType,
-                                    elevation: elevation),
-              let node = self.createNode(with: mesh) else { return }
+                                    elevation: elevation) else { return }
         
-        self.scene.rootNode.addChildNode(node)
+        let node = SCNNode(mesh: mesh)
+        
+        scene.rootNode.addChildNode(node)
         
         node.geometry?.program = Program(function: .geometry)
         
-        self.updateProfile(for: mesh)
+        updateProfile(for: mesh)
     }
     
     private func updateSurface() {
@@ -118,7 +109,7 @@ extension AppViewModel {
         
         let mesh = Mesh([polygon])
         
-        guard let node = createNode(with: mesh) else { return }
+        let node = SCNNode(mesh: mesh)
         
         node.geometry?.program = Program(function: .geometry)
         

@@ -5,9 +5,13 @@
 //
 
 import Bivouac
+import Deltille
 import Euclid
 
 extension Grid.Triangle.Kite {
+    
+    public static let apex = Double(Grid.Scale.tile.edgeLength) / 10.0
+    public static let base = Double(Grid.Scale.tile.edgeLength) / 2.0
     
     public enum Elevation: String,
                            CaseIterable,
@@ -38,19 +42,6 @@ extension Grid.Triangle.Kite {
         
         var polygons: [Polygon] = []
         
-        let apex = points.map { Vertex($0 + peak,
-                                       .up,
-                                       nil,
-                                       color) }
-        
-        let base = points.map { Vertex($0,
-                                       -.up,
-                                       nil,
-                                       color) }
-        
-        try polygons.glue(Polygon(apex))
-        try polygons.glue(Polygon(base.reversed()))
-        
         for i in points.indices {
             
             let j = (i + 1) % points.count
@@ -66,8 +57,17 @@ extension Grid.Triangle.Kite {
                              v3],
                             color: color)
             
-            try polygons.glue(face?.polygon)
+            try polygons.append(face?.polygon)
         }
+        
+        guard elevation == .apex else { return Mesh(polygons) }
+        
+        let apex = points.map { Vertex($0 + peak,
+                                       .up,
+                                       nil,
+                                       color) }
+        
+        try polygons.append(Polygon(apex))
         
         return Mesh(polygons)
     }

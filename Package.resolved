@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "git@github.com:3Squared/PeakOperation.git",
       "state" : {
-        "branch" : "develop",
-        "revision" : "35811e5f3dc539a185601c6b3d54e0a9f9481cb1"
+        "branch" : "master",
+        "revision" : "f5070818152d65d001455992c0b414727f8e19d4"
       }
     },
     {
@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-clocks",
       "state" : {
-        "revision" : "d1fd837326aa719bee979bdde1f53cd5797443eb",
-        "version" : "1.0.0"
+        "revision" : "a8421d68068d8f45fbceb418fbf22c5dad4afd33",
+        "version" : "1.0.2"
       }
     },
     {
@@ -51,7 +51,7 @@
       "location" : "git@github.com:pointfreeco/swift-dependencies.git",
       "state" : {
         "branch" : "main",
-        "revision" : "9783b58167f7618cb86011156e741cbc6f4cc864"
+        "revision" : "5003569db19415ccea1fdaa268316bf9c4ff5deb"
       }
     },
     {
@@ -59,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
       "state" : {
-        "revision" : "23cbf2294e350076ea4dbd7d5d047c1e76b03631",
-        "version" : "1.0.2"
+        "revision" : "6f30bdba373bbd7fbfe241dddd732651f2fbd1e2",
+        "version" : "1.1.2"
       }
     }
   ],

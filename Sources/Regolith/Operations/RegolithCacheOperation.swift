@@ -1,16 +1,17 @@
 //
-//  TerrainCacheOperation.swift
+//  RegolithCacheOperation.swift
 //
 //  Created by Zack Brown on 15/10/2023.
 //
 
 import Bivouac
+import Deltille
 import Euclid
 import Foundation
 import PeakOperation
 
-public class TerrainCacheOperation: ConcurrentOperation,
-                                    ProducesResult {
+public class RegolithCacheOperation: ConcurrentOperation,
+                                     ProducesResult {
     
     public var output: Result<TerrainCache, Error> = Result { throw ResultError.noResult }
     
