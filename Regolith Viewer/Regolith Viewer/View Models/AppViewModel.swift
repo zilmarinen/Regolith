@@ -82,8 +82,9 @@ extension AppViewModel {
         
         scene.clear()
         
-        updateSurface()
-        
+        updateSurface(.zero)
+        updateSurface(.init(1, 0, -1))
+
         guard let cache,
               let mesh = cache.mesh(for: kite,
                                     terrainType: terrainType,
@@ -98,12 +99,12 @@ extension AppViewModel {
         updateProfile(for: mesh)
     }
     
-    private func updateSurface() {
+    private func updateSurface(_ triangle: Grid.Triangle) {
         
-        let vertices = Grid.Triangle.zero.corners(for: .tile).map { Vertex($0,
-                                                                           .up,
-                                                                           nil,
-                                                                           .gray) }
+        let vertices = triangle.vertices(.tile).map { Vertex($0,
+                                                             .up,
+                                                             nil,
+                                                             .gray) }
         
         guard let polygon = Polygon(vertices) else { return }
         
@@ -124,5 +125,47 @@ extension AppViewModel {
             
             self.profile = mesh.profile
         }
+    }
+    
+    private func renderTriangle(triangle: Grid.Triangle,
+                                scale: Grid.Triangle.Scale,
+                                color: Color) {
+        
+        let vertices = triangle.vertices(scale).map { Vertex($0,
+                                                             .up,
+                                                             nil,
+                                                             color) }
+        
+        guard let polygon = Polygon(vertices) else { return }
+        
+        let mesh = Mesh([polygon])
+        
+        let node = SCNNode(mesh: mesh)
+        
+        node.position = SCNVector3(0.0, -0.0001, 0.0)
+        node.geometry?.program = Program(function: .geometry)
+        
+        scene.rootNode.addChildNode(node)
+    }
+    
+    private func renderHexagon(hexagon: Grid.Hexagon,
+                               scale: Grid.Hexagon.Scale,
+                               color: Color) {
+        
+        let vertices = hexagon.vertices(scale).map { Vertex($0,
+                                                            .up,
+                                                            nil,
+                                                            color) }
+        
+        guard let polygon = Polygon(vertices) else { return }
+        
+        let mesh = Mesh([polygon])
+        
+        let node = SCNNode(mesh: mesh)
+        
+        node.position = SCNVector3(0.0, -0.001, 0.0)
+        node.geometry?.program = Program(function: .geometry)
+        
+        scene.rootNode.addChildNode(node)
     }
 }

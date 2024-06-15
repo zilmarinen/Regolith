@@ -10,8 +10,8 @@ import Euclid
 
 extension Grid.Triangle.Kite {
     
-    public static let apex = Double(Grid.Scale.tile.edgeLength) / 10.0
-    public static let base = Double(Grid.Scale.tile.edgeLength) / 2.0
+    public static let apex = Double(Grid.Triangle.Scale.tile.edgeLength) / 10.0
+    public static let base = Double(Grid.Triangle.Scale.tile.edgeLength) / 2.0
     
     public enum Elevation: String,
                            CaseIterable,
@@ -38,7 +38,7 @@ extension Grid.Triangle.Kite {
         
         let color = (elevation == .apex ? colorPalette.primary : colorPalette.secondary)
         let peak = elevation.peak
-        let points = vertices.map { stencil.vertex(for: $0) }
+        let points = vertices.map { stencil.vertex($0) }
         
         var polygons: [Polygon] = []
         

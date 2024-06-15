@@ -21,7 +21,7 @@ public class RegolithCacheOperation: ConcurrentOperation,
         let queue = DispatchQueue(label: name ?? String(describing: self),
                                   attributes: .concurrent)
         
-        let stencil = Grid.Triangle.zero.stencil(for: .tile)
+        let stencil = Grid.Triangle.zero.stencil(.tile)
         
         var errors: [Error] = []
         var meshes: [String : Mesh] = [:]
