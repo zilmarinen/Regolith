@@ -1,5 +1,5 @@
 //
-//  Triangle.swift
+//  Kite.swift
 //
 //  Created by Zack Brown on 23/08/2023.
 //
@@ -9,9 +9,6 @@ import Deltille
 import Euclid
 
 extension Grid.Triangle.Kite {
-    
-    public static let apex = Double(Grid.Triangle.Scale.tile.edgeLength) / 10.0
-    public static let base = Double(Grid.Triangle.Scale.tile.edgeLength) / 2.0
     
     public enum Elevation: String,
                            CaseIterable,
@@ -24,11 +21,9 @@ extension Grid.Triangle.Kite {
         
         public var peak: Double {
             
-            switch self {
-                
-            case .apex: return Grid.Triangle.Kite.apex
-            case .base: return Grid.Triangle.Kite.base
-            }
+            let edgeLength = Grid.Triangle.Scale.tile.edgeLength
+            
+            return edgeLength / (self == .apex ? 10.0 : 2.0)
         }
     }
     

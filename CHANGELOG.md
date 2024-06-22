@@ -1,6 +1,15 @@
-## [0.1.0](https://github.com/zilmarinen/Regolith/tag/0.1.0) (16/09/2023)
+# CHANGELOG
 
-- Generate `Mesh` from `Grid.Triangle.Kite` vertex configurations.
-- Add `KiteMeshOperation` to generate given `Grid.Triangle.Kite`.
-- Integrate package into `Regolith Viewer` example project.
-- Add `Kite.kappa` and `Kite.uniform` type for degenerate triangles. 
+## [0.1.0](https://github.com/zilmarinen/Regolith/releases/tag/0.1.0) (22/06/2024)
+
+- Introduce `TerrainType` enum
+	- Add transitions to define proximity rules
+	- Add color palette to define terrain colors
+
+- Introduce `TerrainCache`
+
+- Introduce `KiteMeshOperation`
+
+- Introduce `RegolithCacheOperation`
+
+- Introduce Regolith Viewer example application
