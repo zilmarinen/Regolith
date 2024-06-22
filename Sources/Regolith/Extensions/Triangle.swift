@@ -22,12 +22,12 @@ extension Grid.Triangle.Kite {
         
         public var id: String { rawValue }
         
-        public var peak: Vector {
+        public var peak: Double {
             
             switch self {
                 
-            case .apex: return Vector(0.0, Grid.Triangle.Kite.apex, 0.0)
-            case .base: return Vector(0.0, Grid.Triangle.Kite.base, 0.0)
+            case .apex: return Grid.Triangle.Kite.apex
+            case .base: return Grid.Triangle.Kite.base
             }
         }
     }
@@ -36,39 +36,19 @@ extension Grid.Triangle.Kite {
                      colorPalette: ColorPalette,
                      elevation: Elevation) throws -> Mesh {
         
-        let color = (elevation == .apex ? colorPalette.primary : colorPalette.secondary)
-        let peak = elevation.peak
-        let points = vertices.map { stencil.vertex($0) }
+        let stencilVertices = vertices.map { stencil.vertex($0) }
         
-        var polygons: [Polygon] = []
-        
-        for i in points.indices {
+        switch elevation {
             
-            let j = (i + 1) % points.count
+        case .apex: return Mesh.wrap(stencilVertices,
+                                     colorPalette.primary, 
+                                     colorPalette.primary,
+                                     elevation.peak)
             
-            let v0 = points[i]
-            let v1 = points[j]
-            let v2 = v1 + peak
-            let v3 = v0 + peak
-            
-            let face = Face([v0,
-                             v1,
-                             v2,
-                             v3],
-                            color: color)
-            
-            try polygons.append(face?.polygon)
+        case .base: return Mesh.wrap(stencilVertices,
+                                     nil,
+                                     colorPalette.secondary,
+                                     elevation.peak)
         }
-        
-        guard elevation == .apex else { return Mesh(polygons) }
-        
-        let apex = points.map { Vertex($0 + peak,
-                                       .up,
-                                       nil,
-                                       color) }
-        
-        try polygons.append(Polygon(apex))
-        
-        return Mesh(polygons)
     }
 }
