@@ -16,7 +16,7 @@ Regolith was built as a prototyping tool to allow for rapid development and visu
 To install using Swift Package Manager, add this to the `dependencies:` section in your Package.swift file:
 
 ```swift
-.package(url: "https://github.com/zilmarinen/Regolith.git", .upToNextMinor(from: "0.1.0")),
+.package(url: "https://github.com/zilmarinen/Regolith.git", branch: "main"),
 ```
 
 ## Dependencies
