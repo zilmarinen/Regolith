@@ -89,5 +89,15 @@ struct AppView: View {
                     .id(elevation)
             }
         }
+        
+        Button {
+            
+            viewModel.presentExportModal()
+            
+        } label: {
+            
+          Label("Export Meshes",
+                systemImage: "square.and.arrow.up")
+        }
     }
 }

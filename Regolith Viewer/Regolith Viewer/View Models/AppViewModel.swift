@@ -109,3 +109,58 @@ extension AppViewModel {
         }
     }
 }
+
+extension AppViewModel {
+ 
+    func presentExportModal() {
+        
+        let panel = NSOpenPanel()
+        
+        panel.allowsMultipleSelection = false
+        panel.canChooseDirectories = true
+        panel.canChooseFiles = false
+        panel.canCreateDirectories = true
+        panel.isExtensionHidden = true
+        panel.showsHiddenFiles = false
+        panel.showsTagField = false
+        
+        panel.begin { [weak self] response in
+            
+            switch response {
+                
+            case .OK:
+                
+                guard let self,
+                      let url = panel.urls.first else { return }
+                
+                do {
+                    
+                    try export(url)
+                }
+                catch { fatalError(error.localizedDescription) }
+                
+            default: break
+            }
+        }
+    }
+    
+    private func export(_ url: URL) throws {
+        
+        var files: [String : FileWrapper] = [:]
+        
+        let encoder = JSONEncoder()
+        
+        for item in terrainCache.meshes {
+            
+            let data = try encoder.encode(item.value)
+            
+            files["\(item.key).json"] = FileWrapper(regularFileWithContents: data)
+        }
+        
+        let wrapper = FileWrapper(directoryWithFileWrappers: files)
+        
+        try wrapper.write(to: url,
+                          options: .atomic,
+                          originalContentsURL: nil)
+    }
+}
