@@ -42,26 +42,26 @@ extension TerrainType {
         
         switch self {
             
-        case .boreal: return .init(primary: .init(.systemGreen),
-                                   secondary: .init(.systemBrown))
+        case .boreal: return .init(.init(.systemGreen),
+                                   .init(.systemBrown))
             
-        case .chaparral: return .init(primary: .init(.systemTeal),
-                                      secondary: .init(.systemGray))
+        case .chaparral: return .init(.init(.systemTeal),
+                                      .init(.systemGray))
             
-        case .deciduous: return .init(primary: .init(.systemTeal),
-                                      secondary: .init(.systemGray))
+        case .deciduous: return .init(.init(.systemTeal),
+                                      .init(.systemGray))
             
-        case .prairie: return .init(primary: .init(.systemTeal),
-                                    secondary: .init(.systemGray))
+        case .prairie: return .init(.init(.systemTeal),
+                                    .init(.systemGray))
           
-        case .rainforest: return .init(primary: .init(.systemTeal),
-                                       secondary: .init(.systemGray))
+        case .rainforest: return .init(.init(.systemTeal),
+                                       .init(.systemGray))
              
-        case .scrubland: return .init(primary: .init(.systemTeal),
-                                      secondary: .init(.systemGray))
+        case .scrubland: return .init(.init(.systemTeal),
+                                      .init(.systemGray))
             
-        case .tundra: return .init(primary: .init(.systemGreen),
-                                   secondary: .init(.systemBrown))
+        case .tundra: return .init(.init(.systemGreen),
+                                   .init(.systemBrown))
         }
     }
 }

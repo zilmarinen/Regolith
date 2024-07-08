@@ -6,12 +6,16 @@
 
 import Bivouac
 import Deltille
+import Dependencies
 import Euclid
 import Foundation
 import Regolith
 import SceneKit
+import SwiftUI
 
 class AppViewModel: ObservableObject {
+    
+    @Dependency(\.terrainCache) var terrainCache
     
     @Published var terrainType: TerrainType = .boreal {
         
@@ -23,7 +27,7 @@ class AppViewModel: ObservableObject {
         }
     }
     
-    @Published var kite: Grid.Triangle.Kite = .epsilon {
+    @Published var kite: Deltille.Grid.Triangle.Kite = .epsilon {
         
         didSet {
             
@@ -33,7 +37,7 @@ class AppViewModel: ObservableObject {
         }
     }
     
-    @Published var elevation: Grid.Triangle.Kite.Elevation = .base {
+    @Published var elevation: Deltille.Grid.Triangle.Kite.Elevation = .base {
         
         didSet {
             
@@ -49,8 +53,6 @@ class AppViewModel: ObservableObject {
     internal let scene = ModelViewScene()
     
     private let operationQueue = OperationQueue()
-    
-    private var cache: TerrainCache?
     
     init() {
         
@@ -70,7 +72,7 @@ extension AppViewModel {
             
             switch result {
                 
-            case .success(let cache): self.cache = cache
+            case .success(let meshes): terrainCache.merge(meshes)
             case .failure(let error): fatalError(error.localizedDescription)
             }
             
@@ -84,10 +86,9 @@ extension AppViewModel {
         
         scene.render(surface: Grid.Triangle.zero.perimeter)
 
-        guard let cache,
-              let mesh = cache.mesh(for: kite,
-                                    terrainType: terrainType,
-                                    elevation: elevation) else { return }
+        guard let mesh = terrainCache.mesh(kite,
+                                           terrainType,
+                                           elevation) else { return }
         
         let geometry = SCNGeometry(mesh)
         

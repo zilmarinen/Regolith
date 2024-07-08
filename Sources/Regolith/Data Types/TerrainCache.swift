@@ -4,27 +4,29 @@
 //  Created by Zack Brown on 15/10/2023.
 //
 
+import Bivouac
 import Deltille
+import Dependencies
 import Euclid
-import Foundation
 
-public struct TerrainCache {
+public final class TerrainCache: MeshCache,
+                                 DependencyKey {
     
-    public static func identifier(for kite: Grid.Triangle.Kite,
-                                  terrainType: TerrainType,
-                                  elevation: Grid.Triangle.Kite.Elevation) -> String {
+    static public var liveValue = TerrainCache([:])
+    
+    static public func identifier(_ kite: Grid.Triangle.Kite,
+                                  _ terrainType: TerrainType,
+                                  _ elevation: Grid.Triangle.Kite.Elevation) -> String {
         
         "\(kite.id)_\(terrainType.id)_\(elevation.id)"
     }
     
-    public let meshes: [String : Mesh]
-    
-    public func mesh(for kite: Grid.Triangle.Kite,
-                     terrainType: TerrainType,
-                     elevation: Grid.Triangle.Kite.Elevation) -> Mesh? {
+    public func mesh(_ kite: Grid.Triangle.Kite,
+                     _ terrainType: TerrainType,
+                     _ elevation: Grid.Triangle.Kite.Elevation) -> Mesh? {
         
-        meshes[Self.identifier(for: kite,
-                               terrainType: terrainType,
-                               elevation: elevation)]
+        mesh(Self.identifier(kite,
+                             terrainType,
+                             elevation))
     }
 }

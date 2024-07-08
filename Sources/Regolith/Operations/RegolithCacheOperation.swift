@@ -13,7 +13,7 @@ import PeakOperation
 public class RegolithCacheOperation: ConcurrentOperation,
                                      ProducesResult {
     
-    public var output: Result<TerrainCache, Error> = Result { throw ResultError.noResult }
+    public var output: Result<[String : Mesh], Error> = Result { throw ResultError.noResult }
     
     public override func execute() {
         
@@ -45,9 +45,9 @@ public class RegolithCacheOperation: ConcurrentOperation,
                             
                             switch result {
                                 
-                            case .success(let mesh): meshes[TerrainCache.identifier(for: kite,
-                                                                                    terrainType: terrainType,
-                                                                                    elevation: elevation)] = mesh
+                            case .success(let mesh): meshes[TerrainCache.identifier(kite,
+                                                                                    terrainType,
+                                                                                    elevation)] = mesh
                             case .failure(let error): errors.append(error)
                             }
                             
@@ -60,7 +60,7 @@ public class RegolithCacheOperation: ConcurrentOperation,
         
         group.wait()
         
-        self.output = errors.isEmpty ? .success(.init(meshes: meshes)) : .failure(MeshError.errors(errors))
+        self.output = errors.isEmpty ? .success(meshes) : .failure(MeshError.errors(errors))
         
         finish()
     }
