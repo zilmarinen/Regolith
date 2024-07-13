@@ -133,34 +133,12 @@ extension AppViewModel {
                 guard let self,
                       let url = panel.urls.first else { return }
                 
-                do {
-                    
-                    try export(url)
-                }
-                catch { fatalError(error.localizedDescription) }
+                let operation = TerrainMeshExportOperation(url: url)
+                
+                operation.enqueue(on: self.operationQueue)
                 
             default: break
             }
         }
-    }
-    
-    private func export(_ url: URL) throws {
-        
-        var files: [String : FileWrapper] = [:]
-        
-        let encoder = JSONEncoder()
-        
-        for item in terrainCache.meshes {
-            
-            let data = try encoder.encode(item.value)
-            
-            files["\(item.key).json"] = FileWrapper(regularFileWithContents: data)
-        }
-        
-        let wrapper = FileWrapper(directoryWithFileWrappers: files)
-        
-        try wrapper.write(to: url,
-                          options: .atomic,
-                          originalContentsURL: nil)
     }
 }

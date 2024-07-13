@@ -42,26 +42,26 @@ extension TerrainType {
         
         switch self {
             
-        case .boreal: return .init(.init(.systemGreen),
-                                   .init(.systemBrown))
+        case .boreal: return .init(.init("63424B"),
+                                   .init("3A243B"))
             
-        case .chaparral: return .init(.init(.systemTeal),
-                                      .init(.systemGray))
+        case .chaparral: return .init(.init("BDA928"),
+                                      .init("473F2D"))
             
-        case .deciduous: return .init(.init(.systemTeal),
-                                      .init(.systemGray))
+        case .deciduous: return .init(.init("8B7D3A"),
+                                      .init("534A32"))
             
-        case .prairie: return .init(.init(.systemTeal),
-                                    .init(.systemGray))
+        case .prairie: return .init(.init("FFA631"),
+                                    .init("CB7E1F"))
           
-        case .rainforest: return .init(.init(.systemTeal),
-                                       .init(.systemGray))
+        case .rainforest: return .init(.init("6B9362"),
+                                       .init("2A603B"))
              
-        case .scrubland: return .init(.init(.systemTeal),
-                                      .init(.systemGray))
+        case .scrubland: return .init(.init("F08F90"),
+                                      .init("F2666C"))
             
-        case .tundra: return .init(.init(.systemGreen),
-                                   .init(.systemBrown))
+        case .tundra: return .init(.init("C2DBDF"),
+                                   .init("71A2A6"))
         }
     }
 }

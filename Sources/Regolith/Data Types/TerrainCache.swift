@@ -9,7 +9,7 @@ import Deltille
 import Dependencies
 import Euclid
 
-public final class TerrainCache: MeshCache,
+public final class TerrainCache: AssetCache,
                                  DependencyKey {
     
     static public var liveValue = TerrainCache([:])
