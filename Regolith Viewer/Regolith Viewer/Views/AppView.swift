@@ -65,7 +65,7 @@ struct AppView: View {
             
             ForEach(TerrainType.allCases, id: \.self) { terrainType in
                 
-                Text(terrainType.id.capitalized)
+                Text(terrainType.id)
                     .id(terrainType)
             }
         }
@@ -75,7 +75,7 @@ struct AppView: View {
             
             ForEach(Grid.Triangle.Kite.allCases, id: \.self) { kite in
                 
-                Text(kite.id.capitalized)
+                Text(kite.id)
                     .id(kite)
             }
         }
@@ -85,7 +85,7 @@ struct AppView: View {
             
             ForEach(Grid.Triangle.Kite.Elevation.allCases, id: \.self) { elevation in
                 
-                Text(elevation.id.capitalized)
+                Text(elevation.id)
                     .id(elevation)
             }
         }

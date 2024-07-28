@@ -9,6 +9,7 @@ import Foundation
 
 public enum TerrainType: String,
                          CaseIterable,
+                         Codable,
                          Identifiable {
     
     case boreal
@@ -42,26 +43,26 @@ extension TerrainType {
         
         switch self {
             
-        case .boreal: return .init(.init("63424B"),
-                                   .init("3A243B"))
+        case .boreal: return .init("63424B",
+                                   "3A243B")
             
-        case .chaparral: return .init(.init("BDA928"),
-                                      .init("473F2D"))
+        case .chaparral: return .init("BDA928",
+                                      "473F2D")
             
-        case .deciduous: return .init(.init("8B7D3A"),
-                                      .init("534A32"))
+        case .deciduous: return .init("8B7D3A",
+                                      "534A32")
             
-        case .prairie: return .init(.init("FFA631"),
-                                    .init("CB7E1F"))
+        case .prairie: return .init("FFA631",
+                                    "CB7E1F")
           
-        case .rainforest: return .init(.init("6B9362"),
-                                       .init("2A603B"))
+        case .rainforest: return .init("6B9362",
+                                       "2A603B")
              
-        case .scrubland: return .init(.init("F08F90"),
-                                      .init("F2666C"))
+        case .scrubland: return .init("F08F90",
+                                      "F2666C")
             
-        case .tundra: return .init(.init("C2DBDF"),
-                                   .init("71A2A6"))
+        case .tundra: return .init("C2DBDF",
+                                   "71A2A6")
         }
     }
 }

@@ -20,11 +20,15 @@ let package = Package(
                  branch: "main"),
         .package(url: "git@github.com:3Squared/PeakOperation.git",
                  branch: "master"),
+        .package(url: "git@github.com:pointfreeco/swift-dependencies.git",
+                 branch: "main")
     ],
     targets: [
         .target(name: "Regolith",
                 dependencies: ["Deltille",
                                "Bivouac",
+                               .product(name: "Dependencies",
+                                        package: "swift-dependencies"),
                                "Euclid",
                                "PeakOperation"])
     ]
