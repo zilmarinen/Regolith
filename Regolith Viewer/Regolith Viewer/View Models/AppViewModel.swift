@@ -133,7 +133,8 @@ extension AppViewModel {
                 guard let self,
                       let url = panel.urls.first else { return }
                 
-                let operation = TerrainMeshExportOperation(url: url)
+                let operation = AssetCacheExportOperation(terrainCache,
+                                                          url)
                 
                 operation.enqueue(on: self.operationQueue)
                 

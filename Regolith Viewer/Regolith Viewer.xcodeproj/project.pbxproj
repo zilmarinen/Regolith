@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1808C8A42C401225008DCE1C /* TerrainMeshExportOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1808C8A32C401225008DCE1C /* TerrainMeshExportOperation.swift */; };
 		1847D4AC2A9B62BF004B5E8B /* Regolith_ViewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1847D4AB2A9B62BF004B5E8B /* Regolith_ViewerApp.swift */; };
 		1847D4AE2A9B62BF004B5E8B /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1847D4AD2A9B62BF004B5E8B /* AppView.swift */; };
 		1847D4B02A9B62C1004B5E8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1847D4AF2A9B62C1004B5E8B /* Assets.xcassets */; };
@@ -16,7 +15,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1808C8A32C401225008DCE1C /* TerrainMeshExportOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerrainMeshExportOperation.swift; sourceTree = "<group>"; };
 		1847D4A82A9B62BF004B5E8B /* Regolith Viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Regolith Viewer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1847D4AB2A9B62BF004B5E8B /* Regolith_ViewerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regolith_ViewerApp.swift; sourceTree = "<group>"; };
 		1847D4AD2A9B62BF004B5E8B /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
@@ -38,14 +36,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1808C8A22C401214008DCE1C /* Operations */ = {
-			isa = PBXGroup;
-			children = (
-				1808C8A32C401225008DCE1C /* TerrainMeshExportOperation.swift */,
-			);
-			path = Operations;
-			sourceTree = "<group>";
-		};
 		1847D49F2A9B62BF004B5E8B = {
 			isa = PBXGroup;
 			children = (
@@ -67,7 +57,6 @@
 		1847D4AA2A9B62BF004B5E8B /* Regolith Viewer */ = {
 			isa = PBXGroup;
 			children = (
-				1808C8A22C401214008DCE1C /* Operations */,
 				1847D4AF2A9B62C1004B5E8B /* Assets.xcassets */,
 				1847D4B12A9B62C1004B5E8B /* Regolith_Viewer.entitlements */,
 				1847D4AB2A9B62BF004B5E8B /* Regolith_ViewerApp.swift */,
@@ -180,7 +169,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1808C8A42C401225008DCE1C /* TerrainMeshExportOperation.swift in Sources */,
 				1847D4AE2A9B62BF004B5E8B /* AppView.swift in Sources */,
 				1847D4AC2A9B62BF004B5E8B /* Regolith_ViewerApp.swift in Sources */,
 				1847D4BD2A9B63CC004B5E8B /* AppViewModel.swift in Sources */,
