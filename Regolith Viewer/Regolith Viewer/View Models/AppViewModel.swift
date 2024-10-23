@@ -84,7 +84,7 @@ extension AppViewModel {
         
         scene.clear()
         
-        scene.render(surface: Grid.Triangle.zero.perimeter)
+        scene.render(surface: [Grid.Triangle.zero.position])
 
         guard let mesh = terrainCache.mesh(kite,
                                            terrainType,
@@ -92,7 +92,7 @@ extension AppViewModel {
         
         let geometry = SCNGeometry(mesh)
         
-        geometry.program = Program(function: .geometry)
+        //geometry.program = Program(function: .geometry)
         
         scene.model.geometry = geometry
         

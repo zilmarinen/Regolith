@@ -17,7 +17,7 @@ let package = Package(
         .package(path: "../Deltille"),
         .package(path: "../Bivouac"),
         .package(url: "git@github.com:nicklockwood/Euclid.git",
-                 branch: "main"),
+                 branch: "develop"),
         .package(url: "git@github.com:3Squared/PeakOperation.git",
                  branch: "master"),
         .package(url: "git@github.com:pointfreeco/swift-dependencies.git",

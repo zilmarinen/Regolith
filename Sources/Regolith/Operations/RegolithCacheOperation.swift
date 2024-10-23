@@ -60,7 +60,7 @@ public class RegolithCacheOperation: ConcurrentOperation,
         
         group.wait()
         
-        self.output = errors.isEmpty ? .success(meshes) : .failure(MeshError.errors(errors))
+        self.output = errors.isEmpty ? .success(meshes) : .failure(GeometryError.errors(errors))
         
         finish()
     }
