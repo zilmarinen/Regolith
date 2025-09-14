@@ -5,6 +5,7 @@
 //
 
 import Deltille
+import Euclid
 import Foundation
 import Regolith
 import SceneKit
@@ -29,9 +30,15 @@ internal class AppViewModel: ObservableObject {
     internal let apexColor: NSColor = .apex
     internal let baseColor: NSColor = .base
     
+    internal let model = SCNNode()
+    internal let surface = SCNNode()
+    
     internal init() {
         
         updateScene()
+        
+        scene.rootNode.addChildNode(model)
+        scene.rootNode.addChildNode(surface)
     }
 }
 
@@ -39,19 +46,9 @@ extension AppViewModel {
     
     private func updateScene() {
         
-        clear()
-        
         updateKite()
         
         updateSurface()
-    }
-    
-    private func clear() {
-        
-        scene.rootNode.childNodes.forEach {
-            
-            $0.removeFromParentNode()
-        }
     }
     
     private func updateKite() {
@@ -64,26 +61,22 @@ extension AppViewModel {
                              .base,
                              .init(baseColor))
         
-        let apexNode = SCNNode(geometry: .init(apex))
-        let baseNode = SCNNode(geometry: .init(base))
-        
         let displacement = Triangle.Kite.Slice.base.displacement(stencil.scale)
         
-        apexNode.position = SCNVector3(0, displacement, 0)
+        let mesh = base.union(apex.translated(by: .init(0.0, displacement, 0.0)))
         
-        scene.rootNode.addChildNode(apexNode)
-        scene.rootNode.addChildNode(baseNode)
+        model.geometry = .init(mesh)
     }
     
     private func updateSurface() {
         
+        var mesh = Mesh([])
+        
         for tile in Triangle.zero.perimeter {
             
-            let mesh = tile.mesh(.tile)
-            
-            let node = SCNNode(geometry: .init(mesh))
-            
-            scene.rootNode.addChildNode(node)
+            mesh = mesh.merge(tile.mesh(.tile))
         }
+        
+        surface.geometry = .init(mesh)
     }
 }

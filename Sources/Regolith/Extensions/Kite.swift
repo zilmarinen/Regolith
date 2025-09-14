@@ -36,4 +36,3 @@ extension Triangle.Kite {
         return volume.mesh(color)
     }
 }
-
