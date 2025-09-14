@@ -4,20 +4,16 @@
 //  Created by Zack Brown on 27/08/2023.
 //
 
-import Bivouac
 import Deltille
-import Dependencies
 import Regolith
 import SceneKit
 import SwiftUI
 
-struct AppView: View {
-    
-    @Dependency(\.deviceManager) var deviceManager
+internal struct AppView: View {
     
     @ObservedObject private var viewModel = AppViewModel()
     
-    var body: some View {
+    internal var body: some View {
         
         #if os(iOS)
             NavigationStack {
@@ -29,25 +25,19 @@ struct AppView: View {
         #endif
     }
     
-    var viewer: some View {
+    private var viewer: some View {
         
         ZStack(alignment: .bottomTrailing) {
             
             sceneView
-            
-            Text("Polygons: [\(viewModel.profile.polygonCount)] Vertices: [\(viewModel.profile.vertexCount)]")
-                .foregroundColor(.black)
-                .padding()
         }
     }
     
-    var sceneView: some View {
+    private var sceneView: some View {
         
         SceneView(scene: viewModel.scene,
-                  pointOfView: viewModel.scene.camera.pov,
                   options: [.allowsCameraControl,
-                            .autoenablesDefaultLighting],
-                  technique: deviceManager.technique)
+                            .autoenablesDefaultLighting])
         .toolbar {
             
             ToolbarItemGroup {
@@ -58,46 +48,16 @@ struct AppView: View {
     }
     
     @ViewBuilder
-    var toolbar: some View {
-        
-        Picker("Terrain Type",
-               selection: $viewModel.terrainType) {
-            
-            ForEach(TerrainType.allCases, id: \.self) { terrainType in
-                
-                Text(terrainType.id)
-                    .id(terrainType)
-            }
-        }
+    private var toolbar: some View {
         
         Picker("Kite",
                selection: $viewModel.kite) {
             
-            ForEach(Grid.Triangle.Kite.allCases, id: \.self) { kite in
+            ForEach(Triangle.Kite.allCases, id: \.self) { kite in
                 
                 Text(kite.id)
                     .id(kite)
             }
-        }
-        
-        Picker("Elevation",
-               selection: $viewModel.elevation) {
-            
-            ForEach(Grid.Triangle.Kite.Elevation.allCases, id: \.self) { elevation in
-                
-                Text(elevation.id)
-                    .id(elevation)
-            }
-        }
-        
-        Button {
-            
-            viewModel.presentExportModal()
-            
-        } label: {
-            
-          Label("Export Meshes",
-                systemImage: "square.and.arrow.up")
         }
     }
 }

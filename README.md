@@ -22,11 +22,9 @@ To install using Swift Package Manager, add this to the `dependencies:` section 
 ## Dependencies
 [Deltille](https://github.com/zilmarinen/Deltille) is a utility framework designed to encapsulate the mathematical principles and concepts of a coordinate system defined within a regular tiling of a triangular grid.
 
-[Bivouac](https://github.com/zilmarinen/Bivouac) is a Swift framework providing extensions, utility methods and commonly used design patterns often used when working with [`SceneKit`](https://developer.apple.com/documentation/scenekit).
-
 [Euclid](https://github.com/nicklockwood/Euclid) is a Swift library for creating and manipulating 3D geometry and is used extensively within this project for mesh generation and vector operations.
 
-[PeakOperation](https://github.com/3Squared/PeakOperation) is a Swift microframework providing enhancement and conveniences to [`Operation`](https://developer.apple.com/documentation/foundation/operation). 
+[Lattice](https://github.com/zilmarinen/Lattice) 
 
 ## License
 

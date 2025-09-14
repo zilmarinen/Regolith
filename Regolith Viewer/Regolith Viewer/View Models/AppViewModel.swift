@@ -4,30 +4,15 @@
 //  Created by Zack Brown on 27/08/2023.
 //
 
-import Bivouac
 import Deltille
-import Dependencies
-import Euclid
 import Foundation
 import Regolith
 import SceneKit
 import SwiftUI
 
-class AppViewModel: ObservableObject {
+internal class AppViewModel: ObservableObject {
     
-    @Dependency(\.terrainCache) var terrainCache
-    
-    @Published var terrainType: TerrainType = .boreal {
-        
-        didSet {
-            
-            guard oldValue != terrainType else { return }
-            
-            updateScene()
-        }
-    }
-    
-    @Published var kite: Deltille.Grid.Triangle.Kite = .epsilon {
+    @Published internal var kite: Triangle.Kite = .delta {
         
         didSet {
             
@@ -37,109 +22,68 @@ class AppViewModel: ObservableObject {
         }
     }
     
-    @Published var elevation: Deltille.Grid.Triangle.Kite.Elevation = .base {
+    internal let scene = SCNScene()
+    
+    internal let stencil = Triangle.zero.stencil(.tile)
+    
+    internal let apexColor: NSColor = .apex
+    internal let baseColor: NSColor = .base
+    
+    internal init() {
         
-        didSet {
-            
-            guard oldValue != elevation else { return }
-            
-            updateScene()
-        }
-    }
-    
-    @Published var profile: Mesh.Profile = .init(polygonCount: 0,
-                                                 vertexCount: 0)
-    
-    internal let scene = ModelViewScene()
-    
-    private let operationQueue = OperationQueue()
-    
-    init() {
-        
-        generateCache()
+        updateScene()
     }
 }
 
 extension AppViewModel {
-    
-    private func generateCache() {
-        
-        let operation = RegolithCacheOperation()
-        
-        operation.enqueue(on: operationQueue) { [weak self] result in
-            
-            guard let self else { return }
-            
-            switch result {
-                
-            case .success(let meshes): terrainCache.merge(meshes)
-            case .failure(let error): fatalError(error.localizedDescription)
-            }
-            
-            self.updateScene()
-        }
-    }
     
     private func updateScene() {
         
-        scene.clear()
+        clear()
         
-        scene.render(surface: [Grid.Triangle.zero.position])
-
-        guard let mesh = terrainCache.mesh(kite,
-                                           terrainType,
-                                           elevation) else { return }
+        updateKite()
         
-        let geometry = SCNGeometry(mesh)
-        
-        //geometry.program = Program(function: .geometry)
-        
-        scene.model.geometry = geometry
-        
-        updateProfile(for: mesh)
+        updateSurface()
     }
     
-    private func updateProfile(for mesh: Mesh) {
+    private func clear() {
         
-        DispatchQueue.main.async { [weak self] in
+        scene.rootNode.childNodes.forEach {
             
-            guard let self else { return }
-            
-            self.profile = mesh.profile
+            $0.removeFromParentNode()
         }
     }
-}
-
-extension AppViewModel {
- 
-    func presentExportModal() {
+    
+    private func updateKite() {
         
-        let panel = NSOpenPanel()
+        let apex = kite.mesh(stencil,
+                             .apex,
+                             .init(apexColor))
         
-        panel.allowsMultipleSelection = false
-        panel.canChooseDirectories = true
-        panel.canChooseFiles = false
-        panel.canCreateDirectories = true
-        panel.isExtensionHidden = true
-        panel.showsHiddenFiles = false
-        panel.showsTagField = false
+        let base = kite.mesh(stencil,
+                             .base,
+                             .init(baseColor))
         
-        panel.begin { [weak self] response in
+        let apexNode = SCNNode(geometry: .init(apex))
+        let baseNode = SCNNode(geometry: .init(base))
+        
+        let displacement = Triangle.Kite.Slice.base.displacement(stencil.scale)
+        
+        apexNode.position = SCNVector3(0, displacement, 0)
+        
+        scene.rootNode.addChildNode(apexNode)
+        scene.rootNode.addChildNode(baseNode)
+    }
+    
+    private func updateSurface() {
+        
+        for tile in Triangle.zero.perimeter {
             
-            switch response {
-                
-            case .OK:
-                
-                guard let self,
-                      let url = panel.urls.first else { return }
-                
-                let operation = AssetCacheExportOperation(terrainCache,
-                                                          url)
-                
-                operation.enqueue(on: self.operationQueue)
-                
-            default: break
-            }
+            let mesh = tile.mesh(.tile)
+            
+            let node = SCNNode(geometry: .init(mesh))
+            
+            scene.rootNode.addChildNode(node)
         }
     }
 }
