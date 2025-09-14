@@ -4,46 +4,36 @@
 //  Created by Zack Brown on 23/08/2023.
 //
 
-import Bivouac
 import Deltille
 import Euclid
+import Lattice
 
-extension Grid.Triangle.Kite {
+extension Triangle.Kite {
     
-    public enum Elevation: String,
-                           CaseIterable,
-                           Identifiable {
+    public enum Slice: String,
+                       CaseIterable,
+                       Identifiable {
         
-        case apex = "Apex"
-        case base = "Base"
+        case apex
+        case base
         
-        public var id: String { rawValue }
+        public var id: String { rawValue.capitalized }
         
-        public var peak: Double {
+        public func displacement(_ scale: Triangle.Scale) -> Double {
             
-            let edgeLength = Grid.Triangle.Scale.tile.edgeLength
-            
-            return edgeLength / (self == .apex ? 10.0 : 2.0)
+            (self == .apex ? 0.1 : 0.5) * scale.edgeLength
         }
     }
     
-    public func mesh(using stencil: Grid.Triangle.Stencil,
-                     colorPalette: ColorPalette,
-                     elevation: Elevation) throws -> Mesh {
+    public func mesh(_ stencil: Triangle.Stencil,
+                     _ slice: Slice,
+                     _ color: Color) -> Mesh {
         
-        let stencilVertices = vertices.map { stencil.vertex($0) }
+        let volume = Volume(stencil: stencil,
+                            vertices: vertices,
+                            displacement: slice.displacement(stencil.scale))
         
-        switch elevation {
-            
-        case .apex: return Mesh.wrap(stencilVertices,
-                                     colorPalette.primary, 
-                                     colorPalette.primary,
-                                     elevation.peak)
-            
-        case .base: return Mesh.wrap(stencilVertices,
-                                     nil,
-                                     colorPalette.secondary,
-                                     elevation.peak)
-        }
+        return volume.mesh(color)
     }
 }
+
