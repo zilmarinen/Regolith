@@ -30,7 +30,11 @@ internal class AppViewModel: ObservableObject {
     internal let apexColor: NSColor = .apex
     internal let baseColor: NSColor = .base
     
+    internal let gridColor: NSColor = .grid
+    internal let gridAlternateColor: NSColor = .gridAlternate
+    
     internal let model = SCNNode()
+    internal let wireframe = SCNNode()
     internal let surface = SCNNode()
     
     internal init() {
@@ -39,6 +43,8 @@ internal class AppViewModel: ObservableObject {
         
         scene.rootNode.addChildNode(model)
         scene.rootNode.addChildNode(surface)
+        
+        model.addChildNode(wireframe)
     }
 }
 
@@ -66,6 +72,7 @@ extension AppViewModel {
         let mesh = base.union(apex.translated(by: .init(0.0, displacement, 0.0)))
         
         model.geometry = .init(mesh)
+        wireframe.geometry = .init(wireframe: mesh)
     }
     
     private func updateSurface() {
@@ -74,7 +81,10 @@ extension AppViewModel {
         
         for tile in Triangle.zero.perimeter {
             
-            mesh = mesh.merge(tile.mesh(.tile))
+            let color: NSColor = tile.isPointy ? gridColor : gridAlternateColor
+            
+            mesh = mesh.merge(tile.mesh(.tile,
+                                        .init(color)))
         }
         
         surface.geometry = .init(mesh)

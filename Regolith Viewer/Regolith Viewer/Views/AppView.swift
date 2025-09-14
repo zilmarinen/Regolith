@@ -45,6 +45,7 @@ internal struct AppView: View {
                 toolbar
             }
         }
+        .navigationTitle("Regolith")
     }
     
     @ViewBuilder
