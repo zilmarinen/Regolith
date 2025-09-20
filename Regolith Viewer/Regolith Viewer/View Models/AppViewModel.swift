@@ -37,6 +37,9 @@ internal class AppViewModel: ObservableObject {
     internal let wireframe = SCNNode()
     internal let surface = SCNNode()
     
+    internal var apexHeight: Double { stencil.scale.edgeLength / 10.0 }
+    internal var baseHeight: Double { stencil.scale.edgeLength / 2.0 }
+    
     internal init() {
         
         updateScene()
@@ -60,16 +63,14 @@ extension AppViewModel {
     private func updateKite() {
         
         let apex = kite.mesh(stencil,
-                             .apex,
+                             apexHeight,
                              .init(apexColor))
         
         let base = kite.mesh(stencil,
-                             .base,
+                             baseHeight,
                              .init(baseColor))
         
-        let displacement = Triangle.Kite.Slice.base.displacement(stencil.scale)
-        
-        let mesh = base.union(apex.translated(by: .init(0.0, displacement, 0.0)))
+        let mesh = base.union(apex.translated(by: .init(0.0, baseHeight, 0.0)))
         
         model.geometry = .init(mesh)
         wireframe.geometry = .init(wireframe: mesh)
