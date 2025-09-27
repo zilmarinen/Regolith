@@ -30,14 +30,14 @@ extension Triangle {
         public var id: String { rawValue.capitalized }
         
         public var vertices: [Stencil.Vertex] {
-            
+                    
             switch self {
                 
             case .delta: [.v0, .v1, .v2]
             case .epsilon: [.v0, .v5, .center, .v7]
             case .gamma: [.v0, .v5, .v6, .v9, .v10, .v7]
-            case .kappa: [.v0, .v5, .v9, .v10, .v6, .v7]
-            case .lambda: [.v0, .v5, .v7]
+            case .kappa: [.v0, .v5, .v7]
+            case .lambda: [.v0, .v5, .v9, .v10, .v6, .v7]
             case .omega: [.v0, .v5, .v9, .v10, .v7]
             case .phi: [.v0, .v5, .v6, .v10, .v7]
             case .psi: [.v0, .v5, .v9, .v6, .v7]
@@ -76,16 +76,16 @@ extension Triangle.Kite {
         public var id: String { rawValue.capitalized }
         
         public var kites: [Triangle.Kite] {
-            
+                    
             switch self {
                 
             case .descartes: [.epsilon, .epsilon, .epsilon]
-            case .euclid: [.lambda, .delta, .sigma]
-            case .euler: [.psi, .delta, .omega]
+            case .euclid: [.lambda, .kappa, .sigma]
+            case .euler: [.psi, .kappa, .omega]
             case .gauss: [.lambda, .psi, .psi]
-            case .mobius: [.delta, .gamma, .sigma]
+            case .mobius: [.kappa, .gamma, .sigma]
             case .pascal: [.phi, .gamma, .phi]
-            case .thales: [.delta, .phi, .omega]
+            case .thales: [.kappa, .phi, .omega]
             }
         }
     }
