@@ -14,6 +14,13 @@ extension Triangle {
         
         let patterns = Kite.Pattern.allCases
         
-        return patterns[vertex.position.sum % patterns.count]
+        return patterns[abs(vertex.position.identifier) % patterns.count]
+    }
+    
+    public func kite(index: Int) -> Triangle.Kite {
+        
+        let kites = pattern.kites
+        
+        return kites[abs(index + vertex.position.identifier) % kites.count]
     }
 }
