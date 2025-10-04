@@ -9,5 +9,10 @@ import Deltille
 
 extension Coordinate {
     
-    public var identifier: Int { x &* .bell ^ y &* .delicate ^ z &* .mersenne }
+    public var identifier: Int {
+        
+        x &* .bell ^
+        y &* .delicate ^
+        z &* .mersenne
+    }
 }

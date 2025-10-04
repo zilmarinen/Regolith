@@ -21,6 +21,6 @@ extension Triangle {
         
         let kites = pattern.kites
         
-        return kites[abs(index + vertex.position.identifier) % kites.count]
+        return kites[((abs(vertex.position.identifier) % kites.count) + index) % kites.count]
     }
 }

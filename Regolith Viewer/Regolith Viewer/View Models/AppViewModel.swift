@@ -82,7 +82,7 @@ extension AppViewModel {
         
         for tile in Triangle.zero.perimeter {
             
-            let color: NSColor = tile.isPointy ? gridColor : gridAlternateColor
+            let color = tile.isPointy ? gridColor : gridAlternateColor
             
             mesh = mesh.merge(tile.mesh(.tile,
                                         .init(color)))

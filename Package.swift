@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "Regolith",
-    platforms: [.macOS(.v14),
+    platforms: [.macOS(.v15),
                 .iOS(.v17)],
     products: [
         .library(name: "Regolith",
