@@ -62,11 +62,13 @@ extension AppViewModel {
     
     private func updateKite() {
         
-        let apex = kite.mesh(stencil,
+        let apex = Mesh.kite(kite,
+                             stencil,
                              apexHeight,
                              .init(apexColor))
         
-        let base = kite.mesh(stencil,
+        let base = Mesh.kite(kite,
+                             stencil,
                              baseHeight,
                              .init(baseColor))
         

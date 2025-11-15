@@ -44,17 +44,6 @@ extension Triangle {
             case .sigma: [.v0, .v5, .v9, .v6, .v10, .v7]
             }
         }
-        
-        public func mesh(_ stencil: Triangle.Stencil,
-                         _ displacement: Double,
-                         _ color: Color) -> Mesh {
-            
-            let volume = Volume(stencil: stencil,
-                                vertices: vertices,
-                                displacement: displacement)
-            
-            return volume.mesh(color)
-        }
     }
 }
 
