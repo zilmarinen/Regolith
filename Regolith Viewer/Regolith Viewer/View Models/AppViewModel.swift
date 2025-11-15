@@ -55,12 +55,12 @@ extension AppViewModel {
     
     private func updateScene() {
         
-        updateKite()
+        updateModel()
         
         updateSurface()
     }
     
-    private func updateKite() {
+    private func updateModel() {
         
         let apex = Mesh.kite(kite,
                              stencil,

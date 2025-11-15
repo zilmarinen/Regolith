@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,7 +11,7 @@
 		1847D4AE2A9B62BF004B5E8B /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1847D4AD2A9B62BF004B5E8B /* AppView.swift */; };
 		1847D4B02A9B62C1004B5E8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1847D4AF2A9B62C1004B5E8B /* Assets.xcassets */; };
 		1847D4BD2A9B63CC004B5E8B /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1847D4BC2A9B63CC004B5E8B /* AppViewModel.swift */; };
-		1847D4C22A9B65FE004B5E8B /* Regolith in Frameworks */ = {isa = PBXBuildFile; productRef = 1847D4C12A9B65FE004B5E8B /* Regolith */; };
+		184B48BA2EC8998700029266 /* Regolith in Frameworks */ = {isa = PBXBuildFile; productRef = 184B48B92EC8998700029266 /* Regolith */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,7 +21,6 @@
 		1847D4AF2A9B62C1004B5E8B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1847D4B12A9B62C1004B5E8B /* Regolith_Viewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Regolith_Viewer.entitlements; sourceTree = "<group>"; };
 		1847D4BC2A9B63CC004B5E8B /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
-		1847D4BF2A9B6599004B5E8B /* Regolith */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Regolith; path = ..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,7 +28,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1847D4C22A9B65FE004B5E8B /* Regolith in Frameworks */,
+				184B48BA2EC8998700029266 /* Regolith in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -39,7 +38,6 @@
 		1847D49F2A9B62BF004B5E8B = {
 			isa = PBXGroup;
 			children = (
-				1847D4BE2A9B6599004B5E8B /* Packages */,
 				1847D4A92A9B62BF004B5E8B /* Products */,
 				1847D4AA2A9B62BF004B5E8B /* Regolith Viewer */,
 				1847D4C02A9B65FE004B5E8B /* Frameworks */,
@@ -82,14 +80,6 @@
 			path = "View Models";
 			sourceTree = "<group>";
 		};
-		1847D4BE2A9B6599004B5E8B /* Packages */ = {
-			isa = PBXGroup;
-			children = (
-				1847D4BF2A9B6599004B5E8B /* Regolith */,
-			);
-			name = Packages;
-			sourceTree = "<group>";
-		};
 		1847D4C02A9B65FE004B5E8B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -114,7 +104,7 @@
 			);
 			name = "Regolith Viewer";
 			packageProductDependencies = (
-				1847D4C12A9B65FE004B5E8B /* Regolith */,
+				184B48B92EC8998700029266 /* Regolith */,
 			);
 			productName = "Regolith Viewer";
 			productReference = 1847D4A82A9B62BF004B5E8B /* Regolith Viewer.app */;
@@ -144,6 +134,9 @@
 				Base,
 			);
 			mainGroup = 1847D49F2A9B62BF004B5E8B;
+			packageReferences = (
+				184A35182EC8992E00CAAAE3 /* XCLocalSwiftPackageReference "../../Regolith" */,
+			);
 			productRefGroup = 1847D4A92A9B62BF004B5E8B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -386,9 +379,17 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		184A35182EC8992E00CAAAE3 /* XCLocalSwiftPackageReference "../../Regolith" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../Regolith;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
-		1847D4C12A9B65FE004B5E8B /* Regolith */ = {
+		184B48B92EC8998700029266 /* Regolith */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = 184A35182EC8992E00CAAAE3 /* XCLocalSwiftPackageReference "../../Regolith" */;
 			productName = Regolith;
 		};
 /* End XCSwiftPackageProductDependency section */
