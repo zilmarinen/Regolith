@@ -11,6 +11,7 @@ import Regolith
 import SceneKit
 import SwiftUI
 
+@MainActor
 internal class AppViewModel: ObservableObject {
     
     @Published internal var kite: Triangle.Kite = .delta {
