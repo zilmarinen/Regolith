@@ -20,11 +20,12 @@ To install using Swift Package Manager, add this to the `dependencies:` section 
 ```
 
 ## Dependencies
+
+[Bivouac](https://github.com/zilmarinen/bivouac) is a Swift component library that extends and builds upon `Deltille` providing utility methods for common design patterns.
+
 [Deltille](https://github.com/zilmarinen/Deltille) is a utility framework designed to encapsulate the mathematical principles and concepts of a coordinate system defined within a regular tiling of a triangular grid.
 
-[Euclid](https://github.com/nicklockwood/Euclid) is a Swift library for creating and manipulating 3D geometry and is used extensively within this project for mesh generation and vector operations.
-
-[Lattice](https://github.com/zilmarinen/Lattice) 
+[Euclid](https://github.com/nicklockwood/Euclid) is a Swift library for creating and manipulating 3D geometry and is used extensively within this project for mesh generation and vector operations. 
 
 ## License
 

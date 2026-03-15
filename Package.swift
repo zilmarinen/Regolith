@@ -12,17 +12,15 @@ let package = Package(
                  targets: ["Regolith"]),
     ],
     dependencies: [
-//        .package(url: "git@github.com:zilmarinen/Deltille.git",
-//                 branch: "main"),
+        .package(path: "../Bivouac"),
         .package(path: "../Deltille"),
         .package(url: "git@github.com:nicklockwood/Euclid.git",
                  branch: "main"),
-        .package(path: "../Lattice"),
     ],
     targets: [
         .target(name: "Regolith",
-                dependencies: ["Deltille",
-                               "Euclid",
-                               "Lattice"])
+                dependencies: ["Bivouac",
+                               "Deltille",
+                               "Euclid"])
     ]
 )
