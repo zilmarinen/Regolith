@@ -63,17 +63,12 @@ extension AppViewModel {
     
     private func updateModel() {
         
-        let apex = Mesh.kite(kite,
-                             stencil,
-                             apexHeight,
-                             .init(apexColor))
-        
-        let base = Mesh.kite(kite,
+        let mesh = Mesh.kite(kite,
                              stencil,
                              baseHeight,
-                             .init(baseColor))
-        
-        let mesh = base.union(apex.translated(by: .init(0.0, baseHeight, 0.0)))
+                             apexHeight,
+                             .init(baseColor),
+                             .init(apexColor))
         
         model.geometry = .init(mesh)
         wireframe.geometry = .init(wireframe: mesh)
@@ -87,8 +82,10 @@ extension AppViewModel {
             
             let color = tile.isPointy ? gridColor : gridAlternateColor
             
-            mesh = mesh.merge(tile.mesh(.tile,
-                                        .init(color)))
+            guard let surface = Mesh.surface(tile.vertices.position(.tile),
+                                             .init(color)) else { continue }
+            
+            mesh = mesh.merge(surface)
         }
         
         surface.geometry = .init(mesh)
